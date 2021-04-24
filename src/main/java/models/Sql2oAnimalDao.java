@@ -46,11 +46,12 @@ public class Sql2oAnimalDao implements AnimalDao {
     }
     @Override
 
-    public void update(int id, String newName){
-        String sql = "UPDATE animals SET name = :name WHERE id=:id";
+    public void update(int id, String newName, int newEndangeredId){
+        String sql = "UPDATE animals SET (name, endangeredId) = (:name, :endangeredId) WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
-                    .addParameter("description", newName)
+                    .addParameter("name", newName)
+                    .addParameter("endangeredId", newEndangeredId)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
