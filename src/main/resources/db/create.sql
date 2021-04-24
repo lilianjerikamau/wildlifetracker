@@ -10,5 +10,13 @@ CREATE TABLE IF NOT EXISTS animals
     name
     VARCHAR,
     endangered
-    BOOLEAN
+    BOOLEAN,
+    endangeredId int,
+);
+CREATE TABLE IF NOT EXISTS endangered (
+                                          id int PRIMARY KEY auto_increment,
+                                          name VARCHAR,
+                                          health VARCHAR,
+                                          age int
+
 );

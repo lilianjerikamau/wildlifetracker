@@ -8,12 +8,25 @@ public class Animal {
     private String name;
     private boolean endangered;
     private LocalDateTime createdAt;
+    private int endangeredId;
 
-    public  Animal(String name){
+    public  Animal(String name, int endangeredId){
         this.name= name;
         this.endangered= false;
         this.createdAt = LocalDateTime.now();
+        this.endangeredId = endangeredId;
     }
+
+    public int getEndangeredId() {
+        return endangeredId;
+    }
+
+    public void setEndangeredId(int endangeredId) {
+        this.endangeredId = endangeredId;
+    }
+
+
+
     public int getId() {
         return id;
     }

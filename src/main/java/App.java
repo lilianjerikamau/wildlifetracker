@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +35,8 @@ public class App {
         //get: show all tasks
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Animal> tasks = aniamalDao.getAll();
-            model.put("tasks", tasks);
+            List<Animal> animals = animalDao.getAll();
+            model.put("animals", animals);
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -51,7 +50,7 @@ public class App {
         post("/animals", (req, res) -> { //URL to make new task on POST route
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
-            Animal newTask = new Animal(name);
+            Animal newTask = new Animal(name, 1);
             animalDao.add(newTask);
             res.redirect("/");
             return null;

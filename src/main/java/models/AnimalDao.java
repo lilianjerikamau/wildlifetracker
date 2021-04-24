@@ -7,13 +7,13 @@ public interface AnimalDao {
     List<Animal> getAll();
 
     // CREATE
-    void add(Animal task);
+    void add(Animal animal);
 
     // READ
     Animal findById(int id);
 
     // UPDATE
-     void update(int id, String content);
+     void update(int id, String name);
 
     // DELETE
      void deleteById(int id);

@@ -33,6 +33,6 @@ class AnimalTest {
 
     //helper methods
     public Animal setupNewAnimal(){
-        return new Animal("cheetah");
+        return new Animal("cheetah", 1);
     }
 }

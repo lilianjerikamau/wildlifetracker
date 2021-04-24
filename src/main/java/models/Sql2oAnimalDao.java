@@ -13,12 +13,13 @@ public class Sql2oAnimalDao implements AnimalDao {
         this.sql2o = sql2o; //making the sql2o object available everywhere so we can call methods in it
     }
 
+
     @Override
     public void add(Animal animal) {
-        String sql = "INSERT INTO animals (name) VALUES (:name)"; //raw sql
+        String sql = "INSERT INTO animals (name, endangeredId) VALUES (:name, :endangeredId)"; //raw sql
         try(Connection con = sql2o.open()){ //try to open a connection
             int id = (int) con.createQuery(sql, true) //make a new variable
-                    .bind(animal) //map my argument onto the query so we can use information from it
+                    .bind(animal)
                     .executeUpdate() //run it all
                     .getKey(); //int id is now the row number (row “key”) of db
             animal.setId(id); //update object to set id now from database
@@ -45,11 +46,11 @@ public class Sql2oAnimalDao implements AnimalDao {
     }
     @Override
 
-    public void update(int id, String newDescription){
-        String sql = "UPDATE tasks SET description = :description WHERE id=:id";
+    public void update(int id, String newName){
+        String sql = "UPDATE animals SET name = :name WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
-                    .addParameter("description", newDescription)
+                    .addParameter("description", newName)
                     .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
@@ -58,7 +59,7 @@ public class Sql2oAnimalDao implements AnimalDao {
     }
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE from tasks WHERE id=:id";
+        String sql = "DELETE from animals WHERE id=:id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -69,8 +70,8 @@ public class Sql2oAnimalDao implements AnimalDao {
     }
 
     @Override
-    public void clearAllTasks() {
-        String sql = "DELETE from tasks";
+    public void clearAllAnimals() {
+        String sql = "DELETE from animals";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();
@@ -78,6 +79,7 @@ public class Sql2oAnimalDao implements AnimalDao {
             System.out.println(ex);
         }
     }
+
 
 
 }
