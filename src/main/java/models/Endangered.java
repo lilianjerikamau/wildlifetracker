@@ -6,9 +6,9 @@ public class Endangered {
     private String name;
     private int id;
     private String health;
-    private int age;
+    private String age;
 
-    public Endangered(String name,String health,int age){
+    public Endangered(String name,String health,String age){
         this.name = name;
         this.health = health;
         this.age = age;
@@ -25,13 +25,6 @@ public class Endangered {
         this.name = name;
     }
 
-//    public String getHealth() {
-//        return health;
-//    }
-//
-//    public void setHealth(String health) {
-//        this.health = health;
-//    }
 
     public int getId() {
         return id;
@@ -41,13 +34,22 @@ public class Endangered {
         this.id = id;
     }
 
-//    public int getAge() {
-//        return age;
-//    }
-//
-//    public void setAge(int age) {
-//        this.age = age;
-//    }
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

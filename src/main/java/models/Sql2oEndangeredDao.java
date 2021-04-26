@@ -47,7 +47,7 @@ public class Sql2oEndangeredDao  implements EndangeredDao {
 
 
     @Override
-    public void update(int id, String newName,String newHealth,int newAge){
+    public void update(int id, String newName,String newHealth,String newAge){
         String sql = "UPDATE endangered SET name = :name, health = :health,  age = :age WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)

@@ -42,7 +42,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             String health = req.queryParams("health");
-            int age = Integer.parseInt(req.params("age"));
+            String age = req.queryParams("age");
             Endangered newEndangered = new Endangered(name,health,age);
             endangeredDao.add(newEndangered);
             res.redirect("/");
@@ -95,7 +95,7 @@ public class App {
             int idOfEndangeredToEdit = Integer.parseInt(req.params("id"));
             String newName = req.queryParams("newEndangeredName");
             String newHealth = req.queryParams("newEndangeredHealth");
-            int newAge = Integer.parseInt(req.params("newEndangeredAge"));
+            String newAge = req.queryParams("newEndangeredAge");
             endangeredDao.update( idOfEndangeredToEdit, newName,newHealth,newAge);
             res.redirect("/");
             return null;

@@ -57,10 +57,10 @@ class Sql2oEndangeredDaoTest {
     public void updateChangesEndangeredContent() throws Exception {
         String initialName = "dog";
         String initialHealth = "bad";
-        int initialAge = 2;
+        String initialAge = "young";
         Endangered endangered = new Endangered (initialName,initialHealth,initialAge);
         endangeredDao.add(endangered);
-        endangeredDao.update(endangered.getId(),"cheetah","good",3);
+        endangeredDao.update(endangered.getId(),"cheetah","good","young");
         Endangered updatedEndangered = endangeredDao.findById(endangered.getId());
         assertNotEquals(initialName, updatedEndangered.getName());
     }
@@ -76,7 +76,7 @@ class Sql2oEndangeredDaoTest {
     @Test
     public void clearAllClearsAllEndangered() throws Exception {
         Endangered endangered = setupNewEndangered();
-        Endangered otherEndangered = new Endangered("dog","good",1);
+        Endangered otherEndangered = new Endangered("dog","good","young");
         endangeredDao.add(endangered);
         endangeredDao.add(otherEndangered);
         int daoSize = endangeredDao.getAll().size();
@@ -102,6 +102,6 @@ class Sql2oEndangeredDaoTest {
 
     // helper method
     public Endangered setupNewEndangered(){
-        return new Endangered("dog","good",2);
+        return new Endangered("dog","good","young");
     }
 }

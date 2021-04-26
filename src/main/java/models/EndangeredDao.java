@@ -18,7 +18,7 @@ public interface EndangeredDao {
     List<Animal> getAllAnimalsByCategory(int endangeredId);
 
     //UPDATE
-    void update(int id, String name,String health,int age);
+    void update(int id, String name,String health,String age);
 
 
     //DELETE
