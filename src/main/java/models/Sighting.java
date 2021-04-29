@@ -10,7 +10,7 @@ public class Sighting{
     private String ranger;
     private String location;
     private int animalId;
-    private int sightingId;
+    private int id;
 
     public Sighting (String ranger, String location, int animalId){
         this.ranger = ranger;
@@ -18,13 +18,12 @@ public class Sighting{
         this.animalId = animalId;
     }
 
-
-    public int getSightingId() {
-        return sightingId;
+    public int getId() {
+        return id;
     }
 
-    public void setSightingId(int sightingId) {
-        this.sightingId = sightingId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRanger() {
@@ -65,15 +64,17 @@ public class Sighting{
         if (this == o) return true;
         if (!(o instanceof Sighting)) return false;
         Sighting sighting = (Sighting) o;
-        return sightingId == sighting.sightingId &&
+        return id == sighting.id &&
                 Objects.equals(ranger, sighting.ranger);
     }
 
     @Override
+//    public int hashCode() {
+//        return Objects.hash(ranger, sightingId);
+//    }
     public int hashCode() {
-        return Objects.hash(ranger, sightingId);
+        return Objects.hash(getRanger(), getRanger(), getAnimalId());
     }
-
 
 //    @Override
 //    public int hashCode() {

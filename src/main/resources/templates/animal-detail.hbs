@@ -1,0 +1,12 @@
+{{#partial "content"}}
+
+    <p>Description: {{ task.name }}</p>
+
+    <p>
+        <a href="/tasks/{{task.id}}/edit">Edit this task</a><br>
+        <a href="/tasks/{{task.id}}/delete">DELETE this task</a>
+    </p>
+
+{{/partial}}
+
+{{> layout.hbs}}

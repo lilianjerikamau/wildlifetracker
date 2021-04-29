@@ -32,23 +32,22 @@ class Sql2oSightingDaoTest {
     @Test
     public void addingSightingSetsId() throws Exception {
         Sighting sighting = setupNewSighting();
-        int originalSightingId = sighting.getSightingId();
+        int originalSightingId = sighting.getId();
         sightingDao.add(sighting);
-        assertNotEquals(originalSightingId, sighting.getSightingId());
+        assertNotEquals(originalSightingId, sighting.getId());
     }
     @Test
     public void existingSightingCanBeFoundById() throws Exception {
         Sighting sighting = new Sighting("ken","beach",3);
         sightingDao.add(sighting);
-        Sighting foundSighting = sightingDao.findById(sighting.getSightingId());
+        Sighting foundSighting = sightingDao.findById(sighting.getId());
         assertEquals(sighting, foundSighting);
     }
     @Test
     public void existingSightingCanBeFoundByAnimalId() throws Exception {
         Sighting sighting = setupNewSighting();
         sightingDao.add(sighting);
-        Sighting foundSighting = sightingDao.allByAnimal(sighting.getSightingId());
-        assertEquals(sighting, foundSighting);
+        assertEquals(1, sightingDao.allByAnimal(2).size());
     }
     @Test
     public void addedSightingAreReturnedFromGetAll() throws Exception {
@@ -61,6 +60,14 @@ class Sql2oSightingDaoTest {
     public void noEndangeredReturnsEmptyList() throws Exception {
         assertEquals(0, sightingDao.getAll().size());
     }
+    @Test
+    public void addSighting_true() throws Exception {
+        String ranger = "kamau";
+        String location = "location A";
+        int animalId = 2;
+        Sighting newSighting = new Sighting(ranger,location,animalId);
+        sightingDao.add(newSighting);
+    }
 
     @Test
     public void updateChangesEndangeredContent() throws Exception {
@@ -69,8 +76,8 @@ class Sql2oSightingDaoTest {
         int initialAnimalId = 2;
         Sighting sighting = new Sighting(initialRanger,initialLocation,initialAnimalId);
         sightingDao.add(sighting);
-        sightingDao.update(sighting.getSightingId(),"vic","mountain",3);
-        Sighting updatedSighting = sightingDao.findById(sighting.getSightingId());
+        sightingDao.update(sighting.getId(),"vic","mountain",3);
+        Sighting updatedSighting = sightingDao.findById(sighting.getId());
         assertNotEquals(initialRanger, updatedSighting.getRanger());
     }
 
@@ -78,7 +85,7 @@ class Sql2oSightingDaoTest {
     public void deleteByIdDeletesCorrectEndangered() throws Exception {
         Sighting sighting = setupNewSighting();
         sightingDao.add(sighting);
-        sightingDao.deleteById(sighting.getSightingId());
+        sightingDao.deleteById(sighting.getId());
         assertEquals(0, sightingDao.getAll().size());
     }
 

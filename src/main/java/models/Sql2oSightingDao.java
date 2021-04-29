@@ -16,13 +16,13 @@ public class Sql2oSightingDao implements SightingDao {
 
     @Override
     public void add(Sighting sighting) {
-        String sql = "INSERT INTO sightings ( ranger ) VALUES (:ranger)";
+        String sql = "INSERT INTO sightings ( ranger,location,animalId ) VALUES (:ranger, :location,:animalId )";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(sighting)
                     .executeUpdate()
                     .getKey();
-            sighting.setSightingId(id);
+            sighting.setId(id);
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
@@ -38,36 +38,33 @@ public class Sql2oSightingDao implements SightingDao {
     }
 
     @Override
-    public Sighting findById (int sightingId) {
-        String sql = "SELECT * FROM sightings WHERE sightingId = :sightingId;";
+    public Sighting findById (int id) {
+        String sql = "SELECT * FROM sightings WHERE id = :id;";
 
         try (Connection con = sql2o.open()) {
             return con.createQuery(sql)
-                    .addParameter("sightingId", sightingId)
+                    .addParameter("id", id)
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Sighting.class);
         }
     }
 @Override
-public Sighting allByAnimal (int animalId) {
-    String sql = "SELECT * FROM sightings WHERE sightingId = :sightingId;";
-
-    try (Connection con = sql2o.open()) {
-        return con.createQuery(sql)
-                .addParameter("sightingId", animalId)
-                .executeAndFetchFirst(Sighting.class);
+public List <Sighting> allByAnimal (int animalId) {
+    try(Connection con = sql2o.open()){
+        return con.createQuery("SELECT * FROM sightings")
+                .executeAndFetch(Sighting.class);
     }
 }
 
     @Override
-    public void update (int sightingId, String newRanger, String newLocation, int newAnimalId){
-        String sql =  "UPDATE sightings SET ranger = :ranger, location = :location,  animalId = :animalId WHERE sightingId=:sightingId";
+    public void update (int id, String newRanger, String newLocation, int newAnimalId){
+        String sql =  "UPDATE sightings SET ranger = :ranger, location = :location,  animalId = :animalId WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("ranger", newRanger)
                     .addParameter("location", newLocation)
                     .addParameter("animalId", newAnimalId)
-                    .addParameter("sightingId", sightingId)
+                    .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);
@@ -75,11 +72,11 @@ public Sighting allByAnimal (int animalId) {
     }
 
     @Override
-    public void deleteById(int sightingId) {
-        String sql = "DELETE from sightings WHERE sightingId=:sightingId"; //raw sql
+    public void deleteById(int id) {
+        String sql = "DELETE from sightings WHERE id=:id"; //raw sql
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
-                    .addParameter("sightingId", sightingId)
+                    .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex){
             System.out.println(ex);

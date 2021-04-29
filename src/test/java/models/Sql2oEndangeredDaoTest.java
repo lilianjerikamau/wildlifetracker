@@ -84,21 +84,7 @@ class Sql2oEndangeredDaoTest {
         assertTrue(daoSize > 0 && daoSize > endangeredDao.getAll().size());
     }
 
-    @Test
-    public void getAllAnimalsByEndangeredReturnsAnimalsCorrectly() throws Exception {
-        Endangered endangered = setupNewEndangered();
-        endangeredDao.add(endangered);
-        int endangeredId = endangered.getId();
-        Animal newAnimal = new Animal("cheetah", endangeredId);
-        Animal otherAnimal = new Animal("dog", endangeredId);
-        Animal thirdAnimal = new Animal("cat", endangeredId);
-        animalDao.add(newAnimal);
-        animalDao.add(otherAnimal); //we are not adding task 3 so we can test things precisely.
-        assertEquals(2, endangeredDao.getAllAnimalsByCategory(endangeredId).size());
-        assertTrue(endangeredDao.getAllAnimalsByCategory(endangeredId).contains(newAnimal));
-        assertTrue(endangeredDao.getAllAnimalsByCategory(endangeredId).contains(otherAnimal));
-        assertFalse(endangeredDao.getAllAnimalsByCategory(endangeredId).contains(thirdAnimal)); //things are accurate!
-    }
+
 
     // helper method
     public Endangered setupNewEndangered(){

@@ -13,7 +13,7 @@ public interface AnimalDao {
     Animal findById(int id);
 
     // UPDATE
-     void update(int id, String name, int endangeredId);
+     void update(int id, String name);
 
     // DELETE
      void deleteById(int id);

@@ -10,11 +10,11 @@ public class Animal {
     private LocalDateTime createdAt;
     private int endangeredId;
 
-    public  Animal(String name, int endangeredId){
+    public  Animal(String name ){
         this.name= name;
         this.endangered= false;
         this.createdAt = LocalDateTime.now();
-        this.endangeredId = endangeredId;
+
     }
 
     public int getEndangeredId() {

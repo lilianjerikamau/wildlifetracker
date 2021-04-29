@@ -10,8 +10,7 @@ CREATE TABLE IF NOT EXISTS animals
     name
     VARCHAR,
     endangered
-    BOOLEAN,
-    endangeredId int,
+    BOOLEAN
 );
 CREATE TABLE IF NOT EXISTS endangered (
                                           id int PRIMARY KEY auto_increment,
@@ -21,9 +20,8 @@ CREATE TABLE IF NOT EXISTS endangered (
 
 );
 CREATE TABLE IF NOT EXISTS sightings (
-                                          sightingId int PRIMARY KEY auto_increment,
+                                          id int PRIMARY KEY auto_increment,
                                           ranger VARCHAR,
                                           location VARCHAR,
-                                          animalId int,
-
+                                          animalId int
 );

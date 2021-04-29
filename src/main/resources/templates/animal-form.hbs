@@ -1,0 +1,25 @@
+{{#partial "content"}}
+
+    {{#if editTask}}
+        <h1>Edit this Task!</h1>
+        <form action="/tasks/{{task.id}}" method="post">
+            <br>
+            <label for="name">Edit this task's description</label>
+            <input id="name" name="name" type="text" value="{{task.name}}">
+            <br>
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
+        <h2>Add a new Task!</h2>
+
+        <form action="/tasks" method="post">
+
+                <label for="name">Task Description</label>
+                <input id="name" name="name" type="text">
+
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}

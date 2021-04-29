@@ -7,7 +7,7 @@ public interface SightingDao {
     //LIST
     List<Sighting> getAll();
     //all by animal id
-    Sighting allByAnimal(int animalId);
+    List <Sighting> allByAnimal(int animalId);
     //CREATE
     void add (Sighting sighting);
 

@@ -1,8 +1,12 @@
 plugins {
     id 'java'
+    id 'application'
 }
+mainClassName = 'App'
+apply plugin: 'java'
 
-group 'org.example'
+sourceCompatibility = 1.8
+group 'com.heroes'
 version '1.0-SNAPSHOT'
 
 repositories {
