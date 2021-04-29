@@ -1,26 +1,54 @@
 
 {{#partial "content"}}
     {{#if editCategory}}
-        <h1>Edit this category!</h1>
+        <h1>Edit this endangered Animal</h1>
         <form action="/categories/{{category.id}}" method="post">
-            <label for="name">Edit this category's name</label>
-            <input id="newName" name="newName" type="text" value="{{category.name}}">
-            <label for="health">Edit this category's name</label>
-            <input id="newHealth" name="newHealth" type="text" value="{{category.health}}">
-            <label for="age">Edit this category's name</label>
-            <input id="newAge" name="newAge" type="text" value="{{category.age}}">
-            <button type="submit" class="btn btn-default">Go!</button>
+            <div class="form-group">
+                <label for="name">Edit Endangered animal's Name</label>
+                <input type="text" class="form-control" id="newName" aria-describedby="emailHelp" placeholder="Enter Name"value="{{category.name}}">
+            </div>
+            <div class="form-group">
+                <label for="health">Password</label>
+                <select class="form-control" id="newLocation"value="{{category.health}}">
+                    <option value="healthy">Healthy</option>
+                    <option value="ill">Ill</option>
+                    <option value="okay">Okay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <select class="form-control" id="newAge"value="{{category.health}}">
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="NewBorn">NewBorn</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     {{else}}
-        <h1>Add a new Category!</h1>
+        <h1>Add a new Endangered Animal!</h1>
         <form action="/categories" method="post">
-            <label for="name">Category Name</label>
-            <input id="name" name="name" type="text">
-            <label for="health">Category Name</label>
-            <input id="health" name="health" type="text">
-            <label for="age">Category Name</label>
-            <input id="age" name="age" type="text">
-            <button type="submit" class="btn btn-default">Go!</button>
+            <div class="form-group">
+                <label for="name">Edit Endangered animal's Name</label>
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+                <label for="health">Password</label>
+                <select class="form-control" id="location">
+                    <option value="healthy">Healthy</option>
+                    <option value="ill">Ill</option>
+                    <option value="okay">Okay</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <select class="form-control" id="age">
+                    <option value="Young">Young</option>
+                    <option value="Adult">Adult</option>
+                    <option value="NewBorn">NewBorn</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     {{/if}}
 {{/partial}}

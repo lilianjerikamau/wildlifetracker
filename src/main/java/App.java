@@ -224,7 +224,23 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+        get("/sightings/new", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Animal> animals = taskDao.getAll();
+            model.put("animals", animals);
+            return new ModelAndView(model, "sighting-form.hbs"); //new layout
+        }, new HandlebarsTemplateEngine());
 
+        post("/sightings", (req, res) -> { //new
+            Map<String, Object> model = new HashMap<>();
+            String ranger = req.queryParams("ranger");
+            String location = req.queryParams("location");
+            int animalId = Integer.parseInt(req.params("animalId"));
+            Sighting newSighting = new Sighting(ranger,location,animalId);
+            sightingDao.add(newSighting);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
         //get: delete all categories and all tasks
         get("/categories/delete", (req, res) -> {
@@ -338,23 +354,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 
-        get("/sightings/new", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-          //refresh list of links for navbar
-            model.put("animals", taskDao.getAll());
-            return new ModelAndView(model, "sighting-form.hbs"); //new layout
-        }, new HandlebarsTemplateEngine());
 
-        post("/sightings", (req, res) -> { //new
-            Map<String, Object> model = new HashMap<>();
-            String ranger = req.queryParams("ranger");
-            String location = req.queryParams("location");
-            int animalId = Integer.parseInt(req.params("animalId"));
-            Sighting newSighting = new Sighting(ranger,location,animalId);
-            sightingDao.add(newSighting);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new category
 

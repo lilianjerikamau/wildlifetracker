@@ -1,14 +1,9 @@
-{{#partial "content"}}
+<div class="container-fluid">
+    {{#partial "content"}}
+        <div class="card" style="width: 40rem;">
+            <img class="card-img-top" src="https://tunza.eco-generation.org/file/desktop-hd-images-of-african-animals.jpg" alt="Card image cap">
+        </div>
 
-    <h1> List o' stuff to do!</h1>
-
-    {{#if tasks}}
-        {{#each tasks }}
-            <p><a href="/tasks/{{id}}">{{name}}</a></p>
-        {{/each}}
-    {{else}}
-        <p>No tasks!</p>
-    {{/if}}
-{{/partial}}
-
-{{> layout.hbs}}
+    {{/partial}}
+    {{> layout.hbs}}
+</div>

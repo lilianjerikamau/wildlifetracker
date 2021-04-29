@@ -1,4 +1,16 @@
 {{#partial "content"}}
+    {{#if editSighting}}
+        <h1>Edit this category!</h1>
+        <form action="/categories/{{category.id}}" method="post">
+            <label for="name">Edit this category's name</label>
+            <input id="newName" name="newName" type="text" value="{{category.name}}">
+            <label for="health">Edit this category's name</label>
+            <input id="newHealth" name="newHealth" type="text" value="{{category.health}}">
+            <label for="age">Edit this category's name</label>
+            <input id="newAge" name="newAge" type="text" value="{{category.age}}">
+            <button type="submit" class="btn btn-default">Go!</button>
+        </form>
+    {{else}}
     <form action="/sightings" method="post">
         <div class="form-group">
             <label for="ranger">Ranger</label>
@@ -26,6 +38,7 @@
 
         <button class="btn btn-info" type="submit" >Add Sighting</button>
     </form>
+    {{/if}}
 {{/partial}}
 
 {{> layout.hbs}}

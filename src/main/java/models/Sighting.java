@@ -50,14 +50,6 @@ public class Sighting{
         this.location = location;
     }
 
-//    public boolean equals(Object otherSighting){
-//        if(!(otherSighting instanceof Sighting)){
-//            return false;
-//        }else{
-//            Sighting newSighting = (Sighting) otherSighting;
-//            return this.getAnimalId()==newSighting.getAnimalId() && this.getRanger().equals(newSighting.getRanger());
-//        }
-//    }
 
     @Override
     public boolean equals(Object o) {
