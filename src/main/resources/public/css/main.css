@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Poiret+One|Raleway|Ubuntu+Mono&display=swap");
 body{
     background-image: url("https://www.flir.eu/globalassets/ots/wildlife-mainbanner.jpg");
     color: white;
+    font-family: "Ubuntu Mono",monospace;
+    font-size: large;
 }
+

@@ -1,19 +1,12 @@
 {{#partial "content"}}
-    {{#if endangered}}
-        {{#each endangered}}
-            <h1>{{location}}</h1>
-            <p>Here are all the tasks listed in this endangered:</p>
+       <b><p>Here are all the animals listed in this endangered:</p></b>
             {{#if endangeredAll}}
                 {{#each endangeredAll}}
-                    <a href="/sightings/{{id}}/edit">Edit this endangered</a><br>
-                    <a href="/sightings/{{id}}/delete">DELETE this endangered</a>
+                    <h3>Ranger:{{ranger}} ,Location:{{location}} ,AnimalTracked:{{animalId}}</h3>
+                    <a href="/sightings/{{id}}/edit" class="fas fa-trash-alt btn btn-info"style="margin: 5px">Edit</a><br>
+                    <a href="/sightings/{{id}}/delete" class="fas fa-edit btn btn-danger">Delete</a>
                 {{/each}}
             {{/if}}
-
-        {{/each}}
-    {{/if}}
-
-
 {{/partial}}
 
 {{> layout.hbs}}
