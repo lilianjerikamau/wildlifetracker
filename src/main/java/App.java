@@ -13,8 +13,8 @@ import static spark.Spark.*;
 public class App {
     public static void main(String[] args) { //type “psvm + tab” to autocreate this
         staticFileLocation("/public");
-        String connectionString = "jdbc:h2:~/todolist.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+        String connectionString = "jdbc:postgresql://localhost:5432/wildlifetracker"; //connect to todolist, not todolist_test!
+        Sql2o sql2o = new Sql2o(connectionString, "sherry", "password");
         Sql2oAnimalDao animalDao = new Sql2oAnimalDao(sql2o);
         Sql2oEndangeredDao endangeredDao = new Sql2oEndangeredDao(sql2o);
         Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
@@ -52,44 +52,23 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
-
-
-        get("/endangered/:id/delete", (req, res) -> {
+        get("/sightings/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfTaskToDelete = Integer.parseInt(req.params("id"));
-            endangeredDao.deleteById(idOfTaskToDelete);
-            res.redirect("/");
-            return null;
+            List<Animal> animals = animalDao.getAll();
+            model.put("animals", animals);
+            return new ModelAndView(model, "sighting-form.hbs"); //new layout
         }, new HandlebarsTemplateEngine());
 
-        get("/endangered/:id/edit", (req, res) -> {
+        post("/sightings", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
-            model.put("editEndangered", true);
-            Endangered endangered = endangeredDao.findById(Integer.parseInt(req.params("id")));
-            model.put("endangered", endangered);
-            model.put("endangeredAll", endangeredDao.getAll()); //refresh list of links for navbar
-            return new ModelAndView(model, "endangered-form.hbs");
-        }, new HandlebarsTemplateEngine());
-        post("/endangered/:id", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            int idOfCategoryToEdit = Integer.parseInt(req.params("id"));
-            String newName = req.queryParams("newName");
-            String newHealth = req.queryParams("newHealth");
-            String newAge = req.queryParams("newAge");
-            endangeredDao.update(idOfCategoryToEdit, newName, newHealth, newAge);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-        get("/endangered/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            endangeredDao.clearAllEndangered();
-            animalDao.clearAllAnimals();
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
-        get("/animals/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            animalDao.clearAllAnimals();
+            String ranger = req.queryParams("ranger");
+//            System.out.println(ranger);
+            String location = req.queryParams("location");
+//            System.out.println(location);
+            int animalId = Integer.parseInt(req.queryParams("animalId"));
+//            System.out.println(animalId);
+            Sighting newSighting = new Sighting(ranger, location, animalId);
+            sightingDao.add(newSighting);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -107,15 +86,55 @@ public class App {
 //            System.out.println(name);
             Animal newTask = new Animal(name);
             animalDao.add(newTask);
-//            List<Task> animalsSoFar = animalDao.getAll();
-//            for (Task animalItem: animalsSoFar
-//                 ) {
-//                System.out.println(animalItem);
-//            }
-//            System.out.println(animalsSoFar);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+
+
+        get("/endangered/:id/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfTaskToDelete = Integer.parseInt(req.params("id"));
+            endangeredDao.deleteById(idOfTaskToDelete);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/endangered/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            endangeredDao.clearAllEndangered();
+            animalDao.clearAllAnimals();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+        get("/animals/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            animalDao.clearAllAnimals();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+        get("/endangered/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("editEndangered", true);
+            Endangered endangered = endangeredDao.findById(Integer.parseInt(req.params("id")));
+            model.put("endangered", endangered);
+            model.put("endangeredAll", endangeredDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "endangered-form.hbs");
+        }, new HandlebarsTemplateEngine());
+        post("/endangered/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfCategoryToEdit = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("newName");
+            System.out.println(newName);
+            String newHealth = req.queryParams("newHealth");
+            System.out.println(newHealth);
+            String newAge = req.queryParams("newAge");
+            System.out.println(newAge);
+            endangeredDao.update(idOfCategoryToEdit, newName, newHealth, newAge);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+
         get("/animals/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             Animal animal = animalDao.findById(Integer.parseInt(req.params("id")));
@@ -123,11 +142,12 @@ public class App {
             model.put("editAnimal", true);
             return new ModelAndView(model, "animal-form.hbs");
         }, new HandlebarsTemplateEngine());
-        post("/animals/:id", (req, res) -> { //URL to update animal on POST route
+        post("/animals/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int animalToEditId = Integer.parseInt(req.params("id"));
-            String newContent = req.queryParams("name");
-            animalDao.update(animalToEditId, newContent);  // remember the hardcoded endangeredId we placed? See what we've done to/with it?
+            int idOfCategoryToEdit = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("newName");
+            System.out.println(newName);
+            animalDao.update(idOfCategoryToEdit, newName);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -137,6 +157,12 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             int idOfTaskToDelete = Integer.parseInt(req.params("id"));
             animalDao.deleteById(idOfTaskToDelete);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+        get("/sightings/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            sightingDao.clearAllSightings();
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -154,26 +180,7 @@ public class App {
             model.put("endangered", foundTask); //add it to model for template to display
             return new ModelAndView(model, "endangered-detail.hbs"); //individual animal page.
         }, new HandlebarsTemplateEngine());
-        get("/sightings/new", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            List<Animal> animals = animalDao.getAll();
-            model.put("animals", animals);
-            return new ModelAndView(model, "sighting-form.hbs"); //new layout
-        }, new HandlebarsTemplateEngine());
 
-        post("/sightings/new", (req, res) -> { //new
-            Map<String, Object> model = new HashMap<>();
-            String ranger = req.queryParams("ranger");
-            System.out.println(ranger);
-            String location = req.queryParams("location");
-            System.out.println(location);
-            int animalId = Integer.parseInt(req.queryParams("animalId"));
-            System.out.println(animalId);
-            Sighting newSighting = new Sighting(ranger, location, animalId);
-            sightingDao.add(newSighting);
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
         get("/sightings/:id/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfTaskToDelete = Integer.parseInt(req.params("id"));
@@ -189,12 +196,7 @@ public class App {
             model.put("endangeredAll", sightingDao.getAll()); //refresh list of links for navbar
             return new ModelAndView(model, "sighting-detail.hbs"); //new
         }, new HandlebarsTemplateEngine());
-        get("/sightings/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            sightingDao.clearAllSightings();
-            res.redirect("/");
-            return null;
-        }, new HandlebarsTemplateEngine());
+
         get("/sightings/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("editSighting", true);

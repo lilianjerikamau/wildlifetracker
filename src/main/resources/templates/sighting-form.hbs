@@ -1,27 +1,32 @@
 {{#partial "content"}}
     {{#if editSighting}}
-
         <h1>Edit this endangered!</h1>
+        <div class="form-group">
         <form action="/sightings/{{sighting.id}}" method="post">
             <label for="newRanger">Edit this endangered's name</label>
-            <input id="newRanger" name="newRanger" type="text" value="{{sighting.ranger}}">
-            <label for="newLocation">Edit this endangered's name</label>
-            <input id="newLocation" name="newLocation" type="text" value="{{sighting.location}}">
+            <input id="newRanger" name="newRanger" class="form-control" type="text" value="{{sighting.ranger}}">
+            <label for="newLocation" id="newLocation">Example select</label>
+            <select class="form-control" id="newLocation" class="form-control" name="newLocation" required>
+                <option >ZONE A</option>
+                <option >ZONE B</option>
+                <option>ZONE C</option>
+                <option >ZONE D</option>
+                <option >ZONE E</option>
+            </select>
             <label for="newAnimalId">Edit this endangered's name</label>
-            <input id="newAnimalId" name="newAnimalId" type="number" value="{{sighting.animalId}}">
+            <input id="newAnimalId" name="newAnimalId"  class="form-control"  type="number" value="{{sighting.animalId}}">
             <button type="submit" class="btn btn-default">Go!</button>
         </form>
-
-{{/if}}
+        </div>
     {{else}}
-    <form action="/sightings/new" method="post">
+    <form action= "/sightings" method="post">
         <div class="form-group">
-            <label for="ranger"id="ranger" >Ranger</label>
-            <input type="text" class="form-control" id="ranger" name="ranger" placeholder="Ranger"required>
+            <label for="ranger" id="ranger" >Ranger</label>
+            <input type="text" class="form-control" id="ranger" name="ranger" placeholder="Ranger" required>
         </div>
         <div class="form-group">
-            <label for="location"id="location">Example select</label>
-            <select class="form-control" id="location" name="location"required>
+            <label for="location" id="location">Example select</label>
+            <select class="form-control" id="location" name="location" required>
                 <option >ZONE A</option>
                 <option >ZONE B</option>
                 <option>ZONE C</option>
@@ -29,21 +34,13 @@
                 <option >ZONE E</option>
             </select>
         </div>
-
         <div class="form-group">
             <label for="animalId">Animal Sighted</label>
-                <input id="animalId" name="animalId" type="number" class="form-control"placeholder="Ranger"required>
-<!--            <select class="form-control" id="animal" name="animal"required>-->
-<!--                {{#each animals}}-->
-<!--                    <option value="{{id}}">{{name}}</option>-->
-<!--                {{/each}}-->
-<!--            </select>-->
+                <input id="animalId" name="animalId" type="number" class="form-control" placeholder="Ranger" required>
         </div>
-
         <button class="btn btn-info" type="submit" >Add Sighting</button>
     </form>
-
+    {{/if}}
     {{/partial}}
-
-
 {{> layout.hbs}}
+

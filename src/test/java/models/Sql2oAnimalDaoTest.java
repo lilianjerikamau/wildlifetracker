@@ -1,25 +1,37 @@
 package models;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Sql2oAnimalDaoTest {
-    private Sql2oAnimalDao animalDao; //ignore me for now. We'll create this soon.
-    private Connection conn; //must be sql2o class conn
-    @BeforeEach
-    public void setUp() throws Exception {
-        String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+public class Sql2oAnimalDaoTest {
+    private static Sql2oAnimalDao animalDao; //these variables are now static.
+    private static Connection conn; //these variables are now static.
+
+    @BeforeAll //changed to @BeforeClass (run once before running any tests in this file)
+    public static void setUp() throws Exception { //changed to static
+        String connectionString = "jdbc:postgresql://localhost:5432/wildlifetracker_test"; // connect to postgres test database
+        Sql2o sql2o = new Sql2o(connectionString, "sherry", "password"); // changed user and pass to null
         animalDao = new Sql2oAnimalDao(sql2o);
-        //keep connection open through entire test so it does not get erased.
-        conn = sql2o.open();
+        conn = sql2o.open(); // open connection once before this test file is run
     }
 
+    @AfterEach // run after every test
+    public void tearDown() throws Exception { //I have changed
+        System.out.println("clearing database");
+        animalDao.clearAllAnimals(); // clear all tasks after every test
+    }
+
+    @AfterAll // changed to @AfterClass (run once after all tests in this file completed)
+    public static void shutDown() throws Exception { //changed to static and shutDown
+        conn.close(); // close connection once after this entire test file is finished
+        System.out.println("connection closed");
+    }
     @Test
     public void addingCourseSetsId() throws Exception {
         Animal animal = new Animal ("cheetah");
@@ -56,9 +68,7 @@ class Sql2oAnimalDaoTest {
     }
 
     //define the following once and then call it as above in your tests.
-    public Animal setupNewAnimal(){
-        return new Animal("lion");
-    }
+
 
     @Test
     public void categoryIdIsReturnedCorrectly() throws Exception {
@@ -69,13 +79,9 @@ class Sql2oAnimalDaoTest {
     }
 
     //define the following once and then call it as above in your tests.
-    public Animal setupNewTask(){
-        return new Animal("bear");
-    }
 
-    @AfterEach
-    void tearDown() throws Exception {
-            conn.close();
-        }
+    public Animal setupNewAnimal(){
+        return new Animal("lion");
+    }
 
 }

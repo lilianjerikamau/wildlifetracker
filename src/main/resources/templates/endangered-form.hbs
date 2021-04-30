@@ -2,22 +2,22 @@
 {{#partial "content"}}
     {{#if editEndangered}}
         <h1>Edit this endangered Animal</h1>
-        <form action="/endangered/{{id}}" method="post">
+        <form action="/endangered/{{endangered.id}}" method="post">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="newName" aria-describedby="emailHelp" placeholder="Enter Name"value="{{endangered.name}}">
+                <label for="newName">Name</label>
+                <input type="text" class="form-control" id="newName" name="newName" aria-describedby="emailHelp" placeholder="Enter Name"value="{{endangered.name}}">
             </div>
             <div class="form-group">
-                <label for="health">Password</label>
-                <select class="form-control" id="newHealth"value="{{endangered.health}}">
+                <label for="newHealth">Password</label>
+                <select class="form-control" id="newHealth" name="newHealth" value="{{endangered.health}}">
                     <option>Healthy</option>
                     <option>Ill</option>
                     <option>Okay</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="age">Age</label>
-                <select class="form-control" id="newAge"value="{{endangered.health}}">
+                <label for="newAge">Age</label>
+                <select class="form-control" id="newAge" name="newAge" value="{{endangered.age}}">
                     <option >Young</option>
                     <option >Adult</option>
                     <option >NewBorn</option>
