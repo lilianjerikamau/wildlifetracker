@@ -3,6 +3,7 @@ package models;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
+import org.sql2o.reflection.Pojo;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Sql2oSightingDao implements SightingDao {
 
     @Override
     public void add(Sighting sighting) {
-        String sql = "INSERT INTO sightings ( ranger,location,animalId ) VALUES (:ranger, :location,:animalId )";
+        String sql = "INSERT INTO locations ( ranger,location,animalId ) VALUES (:ranger, :location,:animalId )";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(sighting)
@@ -28,18 +29,20 @@ public class Sql2oSightingDao implements SightingDao {
         }
     }
 
+@Override
+    public  List<Sighting> getAll() {
+        String sql = "SELECT * FROM locations;";
 
-    @Override
-    public List<Sighting> getAll() {
-        try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM sightings")
+        try (Connection con = sql2o.open()) {
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
                     .executeAndFetch(Sighting.class);
         }
     }
 
     @Override
     public Sighting findById (int id) {
-        String sql = "SELECT * FROM sightings WHERE id = :id;";
+        String sql = "SELECT * FROM locations WHERE id = :id;";
 
         try (Connection con = sql2o.open()) {
             return con.createQuery(sql)
@@ -51,14 +54,14 @@ public class Sql2oSightingDao implements SightingDao {
 @Override
 public List <Sighting> allByAnimal (int animalId) {
     try(Connection con = sql2o.open()){
-        return con.createQuery("SELECT * FROM sightings")
+        return con.createQuery("SELECT * FROM locations")
                 .executeAndFetch(Sighting.class);
     }
 }
 
     @Override
     public void update (int id, String newRanger, String newLocation, int newAnimalId){
-        String sql =  "UPDATE sightings SET ranger = :ranger, location = :location,  animalId = :animalId WHERE id=:id";
+        String sql =  "UPDATE locations SET ranger = :ranger, location = :location,  animalId = :animalId WHERE id=:id";
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("ranger", newRanger)
@@ -73,7 +76,7 @@ public List <Sighting> allByAnimal (int animalId) {
 
     @Override
     public void deleteById(int id) {
-        String sql = "DELETE from sightings WHERE id=:id"; //raw sql
+        String sql = "DELETE from locations WHERE id=:id"; //raw sql
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("id", id)
@@ -85,7 +88,7 @@ public List <Sighting> allByAnimal (int animalId) {
 
     @Override
     public void clearAllSightings() {
-        String sql = "DELETE from sightings"; //raw sql
+        String sql = "DELETE from locations"; //raw sql
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .executeUpdate();

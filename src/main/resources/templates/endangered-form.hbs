@@ -1,51 +1,51 @@
 
 {{#partial "content"}}
-    {{#if editCategory}}
+    {{#if editEndangered}}
         <h1>Edit this endangered Animal</h1>
-        <form action="/categories/{{category.id}}" method="post">
+        <form action="/endangered/{{id}}" method="post">
             <div class="form-group">
-                <label for="name">Edit Endangered animal's Name</label>
-                <input type="text" class="form-control" id="newName" aria-describedby="emailHelp" placeholder="Enter Name"value="{{category.name}}">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="newName" aria-describedby="emailHelp" placeholder="Enter Name"value="{{endangered.name}}">
             </div>
             <div class="form-group">
                 <label for="health">Password</label>
-                <select class="form-control" id="newLocation"value="{{category.health}}">
-                    <option value="healthy">Healthy</option>
-                    <option value="ill">Ill</option>
-                    <option value="okay">Okay</option>
+                <select class="form-control" id="newHealth"value="{{endangered.health}}">
+                    <option>Healthy</option>
+                    <option>Ill</option>
+                    <option>Okay</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <select class="form-control" id="newAge"value="{{category.health}}">
-                    <option value="Young">Young</option>
-                    <option value="Adult">Adult</option>
-                    <option value="NewBorn">NewBorn</option>
+                <select class="form-control" id="newAge"value="{{endangered.health}}">
+                    <option >Young</option>
+                    <option >Adult</option>
+                    <option >NewBorn</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     {{else}}
         <h1>Add a new Endangered Animal!</h1>
-        <form action="/categories" method="post">
+        <form action="/endangered/new" method="post">
             <div class="form-group">
-                <label for="name">Edit Endangered animal's Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                <label for="name">Name</label>
+                <input id="name"   name="name" type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter Name">
             </div>
             <div class="form-group">
                 <label for="health">Password</label>
-                <select class="form-control" id="location">
-                    <option value="healthy">Healthy</option>
-                    <option value="ill">Ill</option>
-                    <option value="okay">Okay</option>
+                <select class="form-control" id="health" name="health">
+                    <option>Healthy</option>
+                    <option >Ill</option>
+                    <option >Okay</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="age">Age</label>
-                <select class="form-control" id="age">
-                    <option value="Young">Young</option>
-                    <option value="Adult">Adult</option>
-                    <option value="NewBorn">NewBorn</option>
+                <select class="form-control" id="age" name="age">
+                    <option >Young</option>
+                    <option>Adult</option>
+                    <option >NewBorn</option>
                 </select>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

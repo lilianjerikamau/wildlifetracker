@@ -16,7 +16,7 @@ public class Sql2oAnimalDao implements AnimalDao {
 
     @Override
     public void add(Animal animal) {
-        String sql = "INSERT INTO animals (name, endangeredId) VALUES (:name, :endangeredId)"; //raw sql
+        String sql = "INSERT INTO animals (name) VALUES (:name)"; //raw sql
         try(Connection con = sql2o.open()){ //try to open a connection
             int id = (int) con.createQuery(sql, true) //make a new variable
                     .bind(animal)

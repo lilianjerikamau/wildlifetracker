@@ -1,9 +1,37 @@
-<div class="container-fluid">
-    {{#partial "content"}}
-        <div class="card" style="width: 40rem;">
-            <img class="card-img-top" src="https://tunza.eco-generation.org/file/desktop-hd-images-of-african-animals.jpg" alt="Card image cap">
+{{#partial "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+        <h2>List Of Non-Endangered Animals</h2>
+            {{#if animals}}
+                {{#each animals}}
+                    <ul>
+                         <a href="/animals/{{id}}">{{name}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
         </div>
-
-    {{/partial}}
-    {{> layout.hbs}}
+        <div class="col-sm-4">
+            <h2>List Of Endangered Animals</h2>
+            {{#if endangered}}
+                {{#each endangered}}
+                    <ul>
+                        <a href="/endangered/{{id}}">{{name}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
+        </div>
+        <div class="col-sm-4">
+            <h2>List Of Sightings</h2>
+            {{#if sightings}}
+                {{#each sightings}}
+                    <ul>
+                        <a href="/sightings/{{id}}">{{location}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
 </div>
+{{/partial}}
+{{> layout.hbs}}

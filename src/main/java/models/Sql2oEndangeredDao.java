@@ -16,7 +16,7 @@ public class Sql2oEndangeredDao  implements EndangeredDao {
 
     @Override
     public void add(Endangered endangered) {
-        String sql = "INSERT INTO endangered (name) VALUES (:name)";
+        String sql = "INSERT INTO endangered (name,health,age) VALUES (:name, :health, :age)";
         try(Connection con = sql2o.open()){
             int id = (int) con.createQuery(sql, true)
                     .bind(endangered)

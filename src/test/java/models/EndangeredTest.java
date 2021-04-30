@@ -6,40 +6,34 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EndangeredTest {
 
-    @Test
-    void getAnimalType() {
-    }
 
     @Test
     void getName() {
+        Endangered endangered = setupNewEndangered();
+        assertEquals("cheetah",endangered.getName());
     }
-
     @Test
-    void setName() {
+    void NewEndangeredObjectGetsCorrectlyCreated_true() throws Exception {
+        Endangered animal = setupNewEndangered();
+        assertEquals(true,
+                animal instanceof Endangered);
     }
-
-    @Test
-    void getId() {
-    }
-
-    @Test
-    void setId() {
-    }
-
     @Test
     void getAge() {
+        Endangered endangered = setupNewEndangered();
+        assertEquals("young",endangered.getAge());
     }
 
-    @Test
-    void setAge() {
-    }
+
 
     @Test
     void getHealth() {
+        Endangered endangered = setupNewEndangered();
+        assertEquals("good",endangered.getHealth());
     }
 
-    @Test
-    void setHealth() {
-    }
 
+    public Endangered setupNewEndangered(){
+        return new Endangered("cheetah","good","young");
+    }
 }

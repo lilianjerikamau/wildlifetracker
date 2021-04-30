@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS endangered (
                                           age VARCHAR
 
 );
-CREATE TABLE IF NOT EXISTS sightings (
-                                          id int PRIMARY KEY auto_increment,
-                                          ranger VARCHAR,
-                                          location VARCHAR,
-                                          animalId int
+
+CREATE TABLE IF NOT EXISTS locations (
+                                         id  int NOT NULL PRIMARY KEY auto_increment,
+                                         ranger VARCHAR,
+                                         location VARCHAR,
+                                         animalId int
 );
