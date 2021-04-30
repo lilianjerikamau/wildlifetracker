@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
-        <h2>List Of Non-Endangered Animals</h2>
+        <h3>List Of Non-Endangered Animals</h3>
             {{#if animals}}
                 {{#each animals}}
                     <ul>
@@ -12,7 +12,7 @@
             {{/if}}
         </div>
         <div class="col-sm-4">
-            <h2>List Of Endangered Animals</h2>
+            <h3>List Of Endangered Animals</h3>
             {{#if endangered}}
                 {{#each endangered}}
                     <ul>
@@ -22,7 +22,7 @@
             {{/if}}
         </div>
         <div class="col-sm-4">
-            <h2>List Of Sightings</h2>
+            <h3>List Of Animal Sightings</h3>
             {{#if sightings}}
                 {{#each sightings}}
                     <ul>
@@ -32,6 +32,7 @@
             {{/if}}
         </div>
     </div>
+
 </div>
 {{/partial}}
 {{> layout.hbs}}

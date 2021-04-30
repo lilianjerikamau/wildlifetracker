@@ -6,7 +6,7 @@
             <form action="/animals/{{animal.id}}" method="post">
                 <br>
                 <label for="newName">Edit this animal's description</label>
-                <input id="newName" name="newName" type="text" value="{{animal.name}}" placeholder="Enter New Name">
+                <input id="newName" name="newName" type="text"class="form-group" value="{{animal.name}}" placeholder="Enter New Name">
                 <br>
                 <button type="submit" class="btn btn-default">Go!</button>
             </form>
@@ -18,7 +18,7 @@
             <form action="/animals" method="post">
 
                 <label for="name">Task Description</label>
-                <input id="name" name="name" type="text" placeholder="Name">
+                <input id="name" name="name" type="text"  class="form-control"  aria-describedby="emailHelp" placeholder="Enter Name">
 
                 <button type="submit" class="btn btn-primary">Go!</button>
             </form>

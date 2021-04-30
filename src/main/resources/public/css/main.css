@@ -5,4 +5,14 @@ body{
     font-family: "Ubuntu Mono",monospace;
     font-size: large;
 }
+a{
+    background-color: black;
+}
+a:hover{
+    background-color: white;
+}
+.btn{
+    margin: 5px;
 
+
+}
