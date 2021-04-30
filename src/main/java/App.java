@@ -13,8 +13,10 @@ import static spark.Spark.*;
 public class App {
     public static void main(String[] args) { //type “psvm + tab” to autocreate this
         staticFileLocation("/public");
-        String connectionString = "jdbc:postgresql://localhost:5432/wildlifetracker"; //connect to todolist, not todolist_test!
-        Sql2o sql2o = new Sql2o(connectionString, "sherry", "password");
+//        String connectionString = "jdbc:postgresql://localhost:5432/wildlifetracker"; //connect to todolist, not todolist_test!
+//        Sql2o sql2o = new Sql2o(connectionString, "sherry", "password");
+        String connectionString = "jdbc:postgresql://otfmvndkiupweq:a49bac73cded44f9e1641e3ae296bcb7f8449700f4c9af7bb3d25c549a98dad6@ec2-52-21-252-142.compute-1.amazonaws.com:5432/db1k4daqltf55a"; //!
+        Sql2o sql2o = new Sql2o(connectionString, "otfmvndkiupweq", "4a49bac73cded44f9e1641e3ae296bcb7f8449700f4c9af7bb3d25c549a98dad6");
         Sql2oAnimalDao animalDao = new Sql2oAnimalDao(sql2o);
         Sql2oEndangeredDao endangeredDao = new Sql2oEndangeredDao(sql2o);
         Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);

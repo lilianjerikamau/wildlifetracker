@@ -1,0 +1,38 @@
+{{#partial "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+        <h3>List Of Non-Endangered Animals</h3>
+            {{#if animals}}
+                {{#each animals}}
+                    <ul>
+                         <a href="/animals/{{id}}">{{name}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
+        </div>
+        <div class="col-sm-4">
+            <h3>List Of Endangered Animals</h3>
+            {{#if endangered}}
+                {{#each endangered}}
+                    <ul>
+                        <a href="/endangered/{{id}}">{{name}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
+        </div>
+        <div class="col-sm-4">
+            <h3>List Of Animal Sightings</h3>
+            {{#if sightings}}
+                {{#each sightings}}
+                    <ul>
+                        <a href="/sightings/{{id}}">{{location}}</a>
+                    </ul>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+
+</div>
+{{/partial}}
+{{> layout.hbs}}

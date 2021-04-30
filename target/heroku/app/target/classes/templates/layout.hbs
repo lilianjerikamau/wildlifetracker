@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}Blog{{/block}}</title>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="/css/main.css" />
+    <script
+            src="https://kit.fontawesome.com/4439f979a2.js"
+            crossorigin="anonymous"
+    ></script>
+</head>
+<div class="container">
+<body>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="/">Home</a></li>
+        <li role="presentation"><a href="/animals/new">Non Endangered Animlas</a></li>
+        <li role="presentation"><a href="/endangered/new">Endangered Animals</a></li>
+        <li role="presentation"><a href="/sightings/new">Sightings</a></li>
+
+
+    </ul>
+    <div class="container">
+        <!--begin main template-->
+        <div class="page-header">
+            <h2 class="text-center">Welcome To Wild Tracker</h2>
+        </div>
+
+        <div class="col-md-12">
+            {{#block "content"}}
+            {{/block}}
+
+        </div>
+    </div>
+    <!--end main template-->
+{{#block "footer"}}
+        <footer class="footer">
+            <div class="container">
+                <hr>
+                <p class="text-muted">
+                    <a href="/endangered/delete"class="btn btn-danger">delete all  animals</a></br></br>
+                    <a href="/animals/delete" class="btn btn-danger">delete all non-endangered animals</a></br>
+                    <a href="/sightings/delete"  class="btn btn-danger">DELETE all sightings</a></br>
+                </p>
+            </div>
+        </footer>
+    </body>
+    </div>
+        <script
+                src="https://kit.fontawesome.com/4439f979a2.js"
+                crossorigin="anonymous"
+        ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </html>
+{{/block}}
+

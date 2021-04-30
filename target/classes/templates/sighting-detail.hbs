@@ -1,0 +1,13 @@
+{{#partial "content"}}
+       <b><p>Here are all the animals listed in this endangered:</p></b>
+            {{#if endangeredAll}}
+                {{#each endangeredAll}}
+                    <h3>Ranger:{{ranger}} ,Location:{{location}} ,AnimalTracked:{{animalId}}</h3>
+                    <a href="/sightings/{{id}}/edit" class="fas fa-trash-alt btn btn-info"style="margin: 5px">Edit</a><br>
+                    <a href="/sightings/{{id}}/delete" class="fas fa-edit btn btn-danger">Delete</a>
+                {{/each}}
+                <a href="/sightings/delete"  class="btn btn-danger">DELETE all sightings</a></br>
+            {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
