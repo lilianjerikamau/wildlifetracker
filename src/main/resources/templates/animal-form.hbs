@@ -5,10 +5,10 @@
         <div class="form-group">
             <form action="/animals/{{animal.id}}" method="post">
                 <br>
-                <label for="newName">Edit this animal's description</label>
-                <input id="newName" name="newName" type="text"class="form-group" value="{{animal.name}}" placeholder="Enter New Name">
+                <label for="newName">Edit this animal's name</label>
+                <input id="newName" name="newName" type="text" class="form-group" value="{{animal.name}}" placeholder="Enter New Name">
                 <br>
-                <button type="submit" class="btn btn-default">Go!</button>
+                <button type="submit" class="btn btn-primary">Go!</button>
             </form>
         </div>
 
@@ -17,7 +17,7 @@
         <div class="form-group">
             <form action="/animals" method="post">
 
-                <label for="name">Task Description</label>
+                <label for="name">Animal Name</label>
                 <input id="name" name="name" type="text"  class="form-control"  aria-describedby="emailHelp" placeholder="Enter Name">
 
                 <button type="submit" class="btn btn-primary">Go!</button>

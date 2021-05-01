@@ -88,8 +88,9 @@
                     <jdkVersion>1.8</jdkVersion>
                     <!-- Change this to YOUR application name! -->
                     <appName>wildtrackerjavaapp</appName>
+
                     <processTypes>
-                        <web>java $JAVA_OPTS -cp target/classes:target/dependency/* App</web>
+                        <web> java $JAVA_OPTS -Dserver.port=$PORT -cp target/classes/:target/dependency/* App</web>
                     </processTypes>
                 </configuration>
             </plugin>
