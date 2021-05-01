@@ -1,22 +1,64 @@
 
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import models.*;
+import org.slf4j.Logger;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+import org.sql2o.Sql2oException;
+import org.slf4j.Logger;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import org.slf4j.LoggerFactory;
 
 
 public class App {
+    public static Sql2o sql2o;
+
+    static {
+        Logger logger = LoggerFactory.getLogger(App.class);
+
+        try {
+            URI dbUri;
+            if (System.getenv("DATABASE_URL") == null) {
+                dbUri = new URI("postgres://localhost:5432/wildlifetracker");
+            } else {
+                dbUri = new URI(System.getenv("DATABASE_URL"));
+            }
+            int port = dbUri.getPort();
+            String host = dbUri.getHost();
+            String path = dbUri.getPath();
+            String username = (dbUri.getUserInfo() == null) ? DatabaseProps.username : dbUri.getUserInfo().split(":")[0];
+            String password = (dbUri.getUserInfo() == null) ? DatabaseProps.password : dbUri.getUserInfo().split(":")[1];
+            sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port + path, username, password);
+        } catch (URISyntaxException e) {
+            logger.error("Unable to connect to database.");
+        }
+    }
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567;
+    }
     public static void main(String[] args) { //type “psvm + tab” to autocreate this
+
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
 //        String connectionString = "jdbc:postgresql://localhost:5432/wildlifetracker"; //connect to todolist, not todolist_test!
 //        Sql2o sql2o = new Sql2o(connectionString, "sherry", "password");
-        String connectionString = "jdbc:postgresql://ec2-23-21-76-49.compute-1.amazonaws.com:5432/d5ke60mfrbhs04"; //!
-        Sql2o sql2o = new Sql2o(connectionString, "rzzhsloqtcovkw", "348c62a0b9d3dff2a71a7f0f6efbf115e87371bc311b409d76d639beab236337");
+//        String connectionString = "jdbc:postgresql://ec2-35-174-35-242.compute-1.amazonaws.com:5432/d5ke60mfrbhs04?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"; //!
+//        Sql2o sql2o = new Sql2o(connectionString, "rzzhsloqtcovkw", "348c62a0b9d3dff2a71a7f0f6efbf115e87371bc311b409d76d639beab236337");
+//       Sql2o sql2o = new Sql2o("jdbc:postgresql://" + host + ":" + port + path, username, password);
         Sql2oAnimalDao animalDao = new Sql2oAnimalDao(sql2o);
         Sql2oEndangeredDao endangeredDao = new Sql2oEndangeredDao(sql2o);
         Sql2oSightingDao sightingDao = new Sql2oSightingDao(sql2o);
