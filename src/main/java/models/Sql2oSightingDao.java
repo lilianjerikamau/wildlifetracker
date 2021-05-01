@@ -35,7 +35,6 @@ public class Sql2oSightingDao implements SightingDao {
 
         try (Connection con = sql2o.open()) {
             return con.createQuery(sql)
-                    .throwOnMappingFailure(false)
                     .executeAndFetch(Sighting.class);
         }
     }
